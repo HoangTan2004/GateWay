@@ -1,4 +1,6 @@
 adafruit-io
 setuptools
 pyserial
+python-dotenv
+
 
