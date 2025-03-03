@@ -8,8 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Lấy thông tin từ biến môi trường
-USERNAME = os.getenv('USERNAME')
-KEY = os.getenv('KEY')
+USERNAME = os.getenv('ADAFRUIT_USERNAME')
+KEY = os.getenv('ADAFRUIT_KEY')
+print(USERNAME, KEY)
+
 
 # Danh sách feed ID cần kết nối
 feed_id_list = [
@@ -36,6 +38,9 @@ sensor_thread = Thread(target=read_sensors)
 sensor_thread.daemon = True
 sensor_thread.start()
 
-# Vòng lặp chính
-while True:
-    time.sleep(1)
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("\nProgram terminated.")
+
