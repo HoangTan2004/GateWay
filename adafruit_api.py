@@ -1,6 +1,6 @@
 from Adafruit_IO import MQTTClient
 import sys
-from uart import Uart
+#from uart import Uart
 
 class Adafruit_API:
     def __init__(self, username, key, feed_id_list, port="COM4"):
@@ -8,7 +8,7 @@ class Adafruit_API:
         self.feed_id_list = feed_id_list
         self.key = key
         self.mqtt_client = None
-        self.uart = None
+        #self.uart = None
         self.port = port
 
     def connected(self, client):
@@ -31,39 +31,32 @@ class Adafruit_API:
         """Xử lý tin nhắn từ Adafruit IO để điều khiển thiết bị."""
         print(f"Received command for {feed_id}: {payload}")
 
-        # Điều khiển nhiệt độ (giả lập quạt/máy sưởi)
+        # Nhận dữ liệu và chỉ in ra, không gửi lệnh qua UART
         if feed_id == "temperature":
-            print(f"Setting Temperature Device to {payload}°C")
-            self.uart.write_message(f"TEMP:{payload}")  # Ví dụ: "TEMP:30"
+            print(f"Received Temperature Data: {payload}°C")
 
-        # Điều khiển cảm biến độ ẩm đất
         elif feed_id == "soil_humidity":
-            print(f"Setting Soil Humidity Level to {payload}%")
-            self.uart.write_message(f"SOIL:{payload}")  # Ví dụ: "SOIL:50"
+            print(f"Received Soil Humidity Data: {payload}%")
 
-        # Điều khiển độ ẩm không khí
         elif feed_id == "air_humidity":
-            print(f"Setting Air Humidity Level to {payload}%")
-            self.uart.write_message(f"AIR:{payload}")  # Ví dụ: "AIR:60"
+            print(f"Received Air Humidity Data: {payload}%")
 
-        # Điều khiển cảm biến ánh sáng
         elif feed_id == "light_sensor":
-            print(f"Adjusting Light Sensor Sensitivity to {payload}")
-            self.uart.write_message(f"LIGHT:{payload}")  # Ví dụ: "LIGHT:200"
+            print(f"Received Light Sensor Data: {payload}")
 
         # Điều khiển đèn LED RGB
         elif feed_id == "rgb_led":
             print(f"Setting RGB LED color to {payload}")
-            self.uart.write_message(f"RGB:{payload}")  # Ví dụ: "RGB:255,0,0"
+            #self.uart.write_message(f"RGB:{payload}")  # Ví dụ: "RGB:255,0,0"
 
         # Điều khiển máy bơm nước
         elif feed_id == "pumper":
             if payload == "1":
                 print("Turning ON Pumper")
-                self.uart.write_message("PUMP:ON")
+                #self.uart.write_message("PUMP:ON")
             else:
                 print("Turning OFF Pumper")
-                self.uart.write_message("PUMP:OFF")
+                #self.uart.write_message("PUMP:OFF")
 
     def publish(self, feed_id, data):
         """Gửi dữ liệu lên Adafruit IO."""
@@ -79,8 +72,8 @@ class Adafruit_API:
         self.mqtt_client.on_subscribe = self.subscribe
         self.mqtt_client.connect()
 
-        self.uart = Uart(self.port, self)
-        self.uart.init_connection()
+        #self.uart = Uart(self.port, self)
+        #self.uart.init_connection()
 
         self.mqtt_client.loop_background()
 
@@ -92,7 +85,7 @@ class Adafruit_API:
 
     def read_serial(self):
         """Đọc dữ liệu từ cảm biến qua UART."""
-        sensor_data = self.uart.read_serial()
-        if sensor_data:
-            self.process_sensor_data(sensor_data)
-        #print("Read serial")
+        # sensor_data = self.uart.read_serial()
+        # if sensor_data:
+        #     self.process_sensor_data(sensor_data)
+        print("Read serial")
