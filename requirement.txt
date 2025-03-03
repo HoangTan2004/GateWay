@@ -1,0 +1,4 @@
+adafruit-io
+setuptools
+pyserial
+
