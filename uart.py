@@ -37,12 +37,12 @@ class Uart:
             # Gửi dữ liệu lên Adafruit IO theo từng loại cảm biến
             if "temperature" in data_from_sensor:
                 self.client.publish("temperature", data_from_sensor['temperature'])
-            if "soil_humidity" in data_from_sensor:
-                self.client.publish("soil_humidity", data_from_sensor['soil_humidity'])
-            if "air_humidity" in data_from_sensor:
-                self.client.publish("air_humidity", data_from_sensor['air_humidity'])
-            if "light_sensor" in data_from_sensor:
-                self.client.publish("light_sensor", data_from_sensor['light_sensor'])
+            if "soil-humidity" in data_from_sensor:
+                self.client.publish("soil-humidity", data_from_sensor['soil-humidity'])
+            if "air-humidity" in data_from_sensor:
+                self.client.publish("air-humidity", data_from_sensor['air-humidity'])
+            if "light-intensity" in data_from_sensor:
+                self.client.publish("light-intensity", data_from_sensor['light-intensity'])
 
         except json.JSONDecodeError:
             print("Error: Invalid JSON format received")

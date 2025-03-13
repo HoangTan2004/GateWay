@@ -3,7 +3,7 @@ import sys
 from uart import Uart
 
 class Adafruit_API:
-    def __init__(self, username, key, feed_id_list, port="COM4"):
+    def __init__(self, username, key, feed_id_list, port="COM5"):
         self.username = username
         self.feed_id_list = feed_id_list
         self.key = key
@@ -39,28 +39,37 @@ class Adafruit_API:
         if feed_id == "temperature":
             print(f"Received Temperature Data: {payload}°C")
 
-        elif feed_id == "soil_humidity":
+        elif feed_id == "soil-humidity":
             print(f"Received Soil Humidity Data: {payload}%")
 
-        elif feed_id == "air_humidity":
+        elif feed_id == "air-humidity":
             print(f"Received Air Humidity Data: {payload}%")
 
-        elif feed_id == "light_sensor":
+        elif feed_id == "light-intensity":
             print(f"Received Light Sensor Data: {payload}")
 
         # Điều khiển đèn LED RGB
-        elif feed_id == "rgb_led":
+        elif feed_id == "led":
             print(f"Setting RGB LED color to {payload}")
             self.uart.write_message(f"RGB:{payload}")  # Ví dụ: "RGB:255,0,0"
 
         # Điều khiển máy bơm nước
-        elif feed_id == "pumper":
+        elif feed_id == "water-pump":
             if payload == "1":
                 print("Turning ON Pumper")
-                self.uart.write_message("PUMP:ON")
+                self.uart.write_message("ON")
             else:
                 print("Turning OFF Pumper")
-                self.uart.write_message("PUMP:OFF")
+                self.uart.write_message("OFF")
+
+        # Điều khiển quạt
+        elif feed_id == "fan":
+            if payload == "1":
+                print("Turning ON Fan")
+                self.uart.write_message("ON")
+            else:
+                print("Turning OFF FAN")
+                self.uart.write_message("OFF")
 
     def publish(self, feed_id, data):
         """Gửi dữ liệu lên Adafruit IO."""

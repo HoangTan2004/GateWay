@@ -8,19 +8,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Lấy thông tin từ biến môi trường
-USERNAME = os.getenv('ADAFRUIT_USERNAME')
-KEY = os.getenv('ADAFRUIT_KEY')
+USERNAME = "htann04"
+KEY = "aio_byLc21OberVRA2alJMLpkdzxcvXt"
 print(USERNAME, KEY)
 
 
 # Danh sách feed ID cần kết nối
 feed_id_list = [
     'temperature',
-    'soil_humidity',
-    'air_humidity',
-    'light_sensor',
-    'rgb_led',
-    'pumper'
+    'soil-humidity',
+    'air-humidity',
+    'light-intensity',
+    'led',
+    'water-pump',
+    'fan',
 ]
 
 # Khởi tạo client Adafruit API
